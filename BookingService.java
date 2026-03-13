@@ -8,7 +8,7 @@ public class BookingService {
     public BookingService() {
     rules = new ArrayList<>();
     rules.add(new DurationRule(30));
-    rules.add(new ParticipantLimitRule(5));
+    rules.add(new ParticipantLimitRule(10));
 
     }
 
