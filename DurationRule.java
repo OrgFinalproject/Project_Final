@@ -4,7 +4,7 @@ public class DurationRule implements BookingRuleStrategy {
 
 	private int maxDuration ;
 	
-	DurationRule(int max)
+	public DurationRule(int max)
 	{
 		this.maxDuration=max;
 	}
