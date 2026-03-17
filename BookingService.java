@@ -12,17 +12,23 @@ public class BookingService {
 
     }
 
-    public boolean bookAppointment(Appointment appointment) {
+    public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
         for (BookingRuleStrategy rule : rules) {
             if (!rule.isValid(appointment)) {
-                System.out.println("Booking rejected: rule violated");
+                System.out.println("Booking rejected: rule violated"+"\n");
                 return false;
             }
         }
-
+        
+        if(appointment.getDuration()>timeslot.getRemainingTime())
+        {
+        	  System.out.println("Booking rejected:not enough time"+"\n");
+        	  return false;
+        }
         appointment.setStatus("Confirmed");
+        timeslot.addAppointment(appointment);
         System.out.println("Appointment booked successfully!");
-
+        
         return true;
     }
 }
