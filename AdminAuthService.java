@@ -4,11 +4,10 @@ public class AdminAuthService {
 
     private Admin admin;
     private boolean loggedIn = false;
-
-    public AdminAuthService(Admin admin) {
-        this.admin = admin;
+    public AdminAuthService(Admin admin,Schedule schedule) {
+        this.admin = admin;  
     }
-
+    
     public boolean login(String username, String password) {
 
         if (admin.getUsername().equals(username) &&
@@ -18,7 +17,7 @@ public class AdminAuthService {
             System.out.println("Login successful");
             return true;
         }
-
+        
         System.out.println("Invalid username or password");
         return false;
     }
@@ -36,4 +35,7 @@ public class AdminAuthService {
     public boolean isLoggedIn() {
         return loggedIn;
     }
+    
+  
+    
 }
