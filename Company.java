@@ -55,4 +55,27 @@ public class Company {
     public List<Schedule> getSchedules() { 
         return schedules; 
     }
+    /**
+ * عرض كافة الفترات الزمنية المتاحة للشركة.
+ * يحقق متطلب US1.3 - View available appointment slots.
+ * @version 1.2
+ */
+public void displayAvailableSlots() {
+    System.out.println("--- المواعيد المتاحة لشركة: " + companyName + " ---");
+    boolean found = false;
+    
+    for (Schedule schedule : schedules) {
+        for (TimeSlot slot : schedule.getAllTimeSlots()) {
+            if (slot.isAvailable()) {
+                System.out.println("التاريخ: " + schedule.getDate() + 
+                                   " | الوقت: " + slot.getStartTime() + " - " + slot.getEndTime());
+                found = true;
+            }
+        }
+    }
+    
+    if (!found) {
+        System.out.println("نعتذر، لا توجد مواعيد متاحة حالياً لهذه الشركة.");
+    }
+}
 }
