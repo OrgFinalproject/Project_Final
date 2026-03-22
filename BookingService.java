@@ -1,6 +1,8 @@
 package soft;
 import java.util.ArrayList;
 import java.util.List;
+/*// Modified for Spring 5 compatibility
+// Author tala-barhoush&tala-jaber*/
 
 public class BookingService {
 
@@ -9,6 +11,8 @@ public class BookingService {
     rules = new ArrayList<>();
     rules.add(new DurationRule(30));
     rules.add(new ParticipantLimitRule(10));
+          // Added in Sprint 5: apply rules based on appointment type (Polymorphism)
+        rules.add(new TypeBasedRule());
 
     }
 
