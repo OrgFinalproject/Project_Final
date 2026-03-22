@@ -1,4 +1,4 @@
-package Software;
+package Soft;
 
 // أنواع المواعيد
 public enum AppointmentType {
