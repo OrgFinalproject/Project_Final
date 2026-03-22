@@ -6,12 +6,10 @@ public class VirtualRule implements BookingRuleStrategy {
     public boolean isValid(Appointment app) {
 
         if (app.getParticipants() > 50) {
-            System.out.println("Virtual appointment cannot exceed 50 participants");
             return false;
         }
 
         if (app.getDuration() <= 0) {
-            System.out.println("Invalid duration for virtual appointment");
             return false;
         }
 
