@@ -4,17 +4,17 @@ import java.util.List;
 /*// Modified for Spring 5 compatibility
 // Author tala-barhoush&tala-jaber*/
 
-public class BookingService {
-
-    private List<BookingRuleStrategy> rules;
-    public BookingService() {
+public BookingService() {
     rules = new ArrayList<>();
+
+    // Sprint 2 rules
     rules.add(new DurationRule(30));
     rules.add(new ParticipantLimitRule(10));
-          // Added in Sprint 5: apply rules based on appointment type (Polymorphism)
-        rules.add(new TypeBasedRule());
 
-    }
+    // Sprint 5 rules
+    rules.add(new UrgentRule());
+    rules.add(new GroupRule());
+}
 
     public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
         for (BookingRuleStrategy rule : rules) {
