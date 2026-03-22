@@ -6,6 +6,12 @@ package Software;
  * * @author Nadeen & Tala Barhoush
  * @version 2.0 
  */
+/**
+ * Updated in Sprint 5:
+** @author Tala
+ * - Added support for multiple appointment types
+ * - Integrated with rule-based system for flexible business logic
+ */
 public class Appointment {
 
     private String date;
