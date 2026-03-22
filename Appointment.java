@@ -16,7 +16,9 @@ public class Appointment {
     
     /** الزبون الذي قام بطلب هذا الموعد */
     private Client client; 
+    // Added in Sprint 5: to support multiple appointment types تعديل 
 
+private AppointmentType type;
     /**
      * منشئ الكلاس لإنشاء طلب موعد جديد.
      * * @param client كائن الزبون الذي يجري الحجز.
@@ -25,14 +27,18 @@ public class Appointment {
      * @param duration مدة الموعد بالدقائق.
      * @param participants عدد الأشخاص المشاركين.
      */
-    public Appointment(Client client, String date, String time, int duration, int participants) {
-        this.client = client;
-        this.date = date;
-        this.time = time;
-        this.duration = duration;
-        this.participants = participants;
-        this.status = "Pending"; // الحالة الافتراضية عند الإنشاء
-    }
+    
+    // Updated constructor in Sprint 5 to include appointment type تعديل
+
+public Appointment(Client client, String date, String time, int duration, int participants, AppointmentType type) {
+    this.client = client;
+    this.date = date;
+    this.time = time;
+    this.duration = duration;
+    this.participants = participants;
+    this.type = type;// store appointment type (Sprint 5)
+    this.status = "Pending";
+}
 
     /** @return تاريخ الموعد */
     public String getDate() { return date; }
@@ -54,7 +60,12 @@ public class Appointment {
 
     /** @return الزبون المرتبط بهذا الموعد */
     public Client getClient() { return client; }
+    
+    // Getter for appointment type (Sprint 5 feature)
 
+public AppointmentType getType() {
+    return type;
+}
     /**
      * عرض معلومات الموعد كاملة للزبون أو الأدمن.
      */
