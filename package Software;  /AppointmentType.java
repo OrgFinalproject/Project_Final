@@ -1,12 +1,11 @@
-package Software;
+package soft;
 
-// أنواع المواعيد
 public enum AppointmentType {
     URGENT,
-    FOLLOW_UP,
-    ASSESSMENT,
+    GROUP,
     VIRTUAL,
     IN_PERSON,
-    INDIVIDUAL,
-    GROUP
+    FOLLOW_UP,
+    ASSESSMENT,
+    INDIVIDUAL
 }

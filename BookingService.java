@@ -1,6 +1,7 @@
 
   package soft;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.*;
 /*  edited by tala-barhoush*/
 public class BookingService {
@@ -29,6 +30,22 @@ public class BookingService {
         virtualRules.add(new VirtualRule());
         rulesMap.put(AppointmentType.VIRTUAL, virtualRules);
     }
+
+
+/*// Modified for Spring 5 compatibility
+// Author tala-barhoush&tala-jaber*/
+
+public BookingService() {
+    rules = new ArrayList<>();
+
+    // Sprint 2 rules
+    rules.add(new DurationRule(30));
+    rules.add(new ParticipantLimitRule(10));
+
+    // Sprint 5 rules
+    rules.add(new UrgentRule());
+    rules.add(new GroupRule());
+}
 
     public boolean bookAppointment(Appointment app, TimeSlot timeslot) {
 
