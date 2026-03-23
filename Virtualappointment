@@ -1,0 +1,18 @@
+package soft;
+
+public class VirtualRule implements BookingRuleStrategy {
+
+    @Override
+    public boolean isValid(Appointment app) {
+
+        if (app.getParticipants() > 50) {
+            return false;
+        }
+
+        if (app.getDuration() <= 0) {
+            return false;
+        }
+
+        return true;
+    }
+}
