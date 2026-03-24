@@ -41,6 +41,13 @@ public class TimeSlot {
         return true;
     }
 
+    public boolean removeAppointment(Appointment appointment)
+    {
+ 	   
+       appointments.remove(appointment);
+        return true;
+    }
+    
     public long getRemainingTime() {
         long totalBookedMinutes = appointments.stream()
                 .mapToLong(Appointment::getDuration)
