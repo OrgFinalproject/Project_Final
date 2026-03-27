@@ -1,4 +1,4 @@
-package Software;
+package Soft;
 
 /**
  * قاعدة تعتمد على نوع الموعد (Sprint 5)
