@@ -1,4 +1,4 @@
-package Software;
+package Soft;
 
 import java.util.ArrayList;
 import java.util.List;
