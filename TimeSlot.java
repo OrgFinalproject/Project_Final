@@ -1,4 +1,4 @@
-package software;
+package soft;
 /*auther Tala Barhoush&tala*/
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -6,7 +6,6 @@ import java.util.List;
 
 import soft.Appointment;
 
-package software;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
