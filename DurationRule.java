@@ -9,7 +9,7 @@ public class DurationRule implements BookingRuleStrategy {
 		this.maxDuration=max;
 	}
 	@Override
-	public boolean isValid(Appointement app) {
+	public boolean isValid(Appointment  app) {
 		// TODO Auto-generated method stub
 		
 		return app.getDuration()<=maxDuration;
