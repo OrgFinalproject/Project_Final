@@ -2,7 +2,7 @@ package Soft;
 
 import java.util.ArrayList;
 import java.util.List;
-import software.Schedule;
+import soft.Schedule;
 
 /**
  * تمثل هذه الفئة الشركة أو مزود الخدمة (مثل شركة سيارات أو مكتب عقارات).
