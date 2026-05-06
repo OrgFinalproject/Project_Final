@@ -1,50 +1,41 @@
+package soft;
 
-  package soft;
 import java.util.ArrayList;
+
+
 import java.util.List;
+import java.time.LocalDate;
 import java.util.*;
-/*  edited by tala-barhoush*/
+/*  edited by tala-Jaber*/
 public class BookingService {
-
-    private Map<AppointmentType, List<BookingRuleStrategy>> rulesMap;
-
-    public BookingService() {
-        rulesMap = new HashMap<>();
-
-        // URGENT rules
-        List<BookingRuleStrategy> urgentRules = new ArrayList<>();
-        urgentRules.add(new DurationRule(30));  // general
-        urgentRules.add(new ParticipantLimitRule(2)); // general
-        urgentRules.add(new UrgentRule());  // specific
-        rulesMap.put(AppointmentType.URGENT, urgentRules);
-
-        // GROUP rules
-        List<BookingRuleStrategy> groupRules = new ArrayList<>();
-        groupRules.add(new DurationRule(120)); // example max duration
-        groupRules.add(new ParticipantLimitRule(20));
-        groupRules.add(new GroupRule());
-        rulesMap.put(AppointmentType.GROUP, groupRules);
-
-        // VIRTUAL rules
-        List<BookingRuleStrategy> virtualRules = new ArrayList<>();
-        virtualRules.add(new VirtualRule());
-        rulesMap.put(AppointmentType.VIRTUAL, virtualRules);
-    }
-
-
+	private List<BookingRuleStrategy> rules;
+   private int maxDuration;
+   private int maxParticipants;
+  
 /*// Modified for Spring 5 compatibility
 // Author tala-barhoush&tala-jaber*/
-
-public BookingService() {
-    rules = new ArrayList<>();
-
+   
+/*
+ * @param maxParticipants 
+ * @param maxDuration
+ */
+public BookingService(int maxParticipants,int maxDuration) {
+	  rules = new ArrayList<BookingRuleStrategy>();
+     this.maxDuration=maxDuration;
+      this.maxParticipants=maxParticipants;
+    		  
     // Sprint 2 rules
-    rules.add(new DurationRule(30));
-    rules.add(new ParticipantLimitRule(10));
-
-    // Sprint 5 rules
-    rules.add(new UrgentRule());
-    rules.add(new GroupRule());
+    rules.add(new DurationRule(this.maxDuration));
+    rules.add(new ParticipantLimitRule(this.maxParticipants));
+   //sprint 5 rules
+    rules.add(new TypeBasedRule());
+rules.add(new UrgentRule());
+ rules.add(new GroupRule());
+    rules.add(new IndividualRule());
+    rules.add(new VirtualRule());
+    rules.add(new InPersonRule());
+    rules.add(new FollowUpRule());
+    rules.add(new AssessmentRule());
 }
 /*
  * -add modify and cancel appointment
@@ -53,6 +44,24 @@ public BookingService() {
  */
 
 public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
+	if(appointment.getDate()==null )
+	{
+		  System.out.println("Booking rejected:cannot book without object date"+"\n");
+		return false;
+	}
+	
+	if(appointment.getOwner()==null )
+	{
+        System.out.println("Booking rejected:cannot book without object Client"+"\n");
+		return false;
+		}	
+	if(appointment.getDate().isBefore(LocalDate.now()))
+	{
+		  System.out.println("Booking rejected: cannot book in old date"+"\n");
+		return false;
+	}
+	
+	
     for (BookingRuleStrategy rule : rules) {
         if (!rule.isValid(appointment)) {
             System.out.println("Booking rejected: rule violated"+"\n");
@@ -74,16 +83,17 @@ public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
 }
     
     
-    
-    public boolean cancelAppointment(Appointment appointment, Object requester, TimeSlot timeslot) {
 
-        if (appointment == null || requester == null || timeslot == null) {
+    
+    public boolean cancelAppointment(Appointment appointment, Object requester) {
+
+        if (appointment == null || requester == null) {
             return false;
         }
 
         // Only future appointments
         if (!appointment.isFuture()) {
-            System.out.println("لا يمكن إلغاء موعد قديم.");
+        	System.out.println("Cannot cancel a past appointment.\n");
             return false;
         }
 
@@ -94,20 +104,24 @@ public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
             Client client = (Client) requester;
 
             if (!appointment.getOwner().equals(client) && !isAdmin) {
-                System.out.println("لا يمكنك إلغاء موعد ليس لك.");
+            	System.out.println("You cannot cancel an appointment that is not yours.");
                 return false;
             }
         }
 
         // Remove from TimeSlot
-        timeslot.removeAppointment(appointment);
-
+        appointment.getTimeSlot().removeAppointment(appointment);
+         appointment.setTimeSlot(null);
         // Update status
         appointment.setStatus("Cancelled");
 
-        System.out.println("تم إلغاء الموعد بنجاح.");
+        System.out.println("Appointment cancelled successfully.");
         return true;
     }
+    
+    
+    
+    
     
    /*****/
     
@@ -121,18 +135,17 @@ public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
 
         // Only future appointments
         if (!appointment.isFuture()) {
-            System.out.println("لا يمكن تعديل موعد قديم.");
+        	System.out.println("Past appointments cannot be modified.");
             return false;
         }
 
-        boolean isAdmin = requester instanceof Company; // حسب كلاس الادمن عندك
-
+        boolean isAdmin = requester instanceof Company; 
         // Authorization check
         if (requester instanceof Client) {
             Client client = (Client) requester;
 
             if (!appointment.getOwner().equals(client) && !isAdmin) {
-                System.out.println("لا يمكنك تعديل موعد ليس لك.");
+            	System.out.println("You cannot modify an appointment that is not yours.");
                 return false;
             }
         }
@@ -151,16 +164,14 @@ public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
         // Add to new slot
         newSlot.addAppointment(appointment);
 
-        // Update reference (مهم جداً)
+        // Update reference 
         appointment.setTimeSlot(newSlot);
 
         System.out.println("Appointment modified (rescheduled) successfully.");
         return true;
     }
     
-    
-    
-    
+      
     
     
 }

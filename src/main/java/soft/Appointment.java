@@ -13,11 +13,12 @@
  */
 package soft;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Appointment {
 
-    private String date;
+    private LocalDate date;
     private int duration;
     private int participants;
     private String status;
@@ -26,23 +27,22 @@ public class Appointment {
      * @author : talajaber 
      * add client and add time slot
      */
-    private Client owner;
+    private Client client;
     private TimeSlot timeSlot;
 
 
    
 
-    public Appointment(String date, String time, int duration, int participants, AppointmentType type, Client owner) {
+    public Appointment(LocalDate date, int duration, int participants, AppointmentType type, Client client){
         this.date = date;
-        this.time = time;
         this.duration = duration;
         this.participants = participants;
         this.type = type;
-        this.owner=owner;
+        this.client=client;
         this.status = "Pending";
     }
-	public Client getOwner() {
-        return owner;
+	public Client getOwner()  {
+        return client;
     }
 
     public TimeSlot getTimeSlot() {
@@ -52,13 +52,20 @@ public class Appointment {
     public void setTimeSlot(TimeSlot timeSlot) {
         this.timeSlot = timeSlot;
     }
-    public boolean isFuture() {
-        LocalDateTime appointmentDateTime = LocalDateTime.of(date,timeSlot.getStartTime());
+     public boolean isFuture() {
+        if (date == null || timeSlot == null || timeSlot.getStartTime() == null) {
+            return false;
+        }
+
+        LocalDateTime appointmentDateTime =
+                LocalDateTime.of(date, timeSlot.getStartTime());
+
         return appointmentDateTime.isAfter(LocalDateTime.now());
     }
     
     
-    public String getDate() { return date; }
+    
+    public LocalDate getDate() { return date; }
     public int getDuration() { return duration; }
     public int getParticipants() { return participants; }
     public AppointmentType getType() { return type; }
@@ -66,7 +73,7 @@ public class Appointment {
     public void setStatus(String status) { this.status = status; }
 
      public void displayInfo() {
-        System.out.println("=== تفاصيل الموعد ===");
+        System.out.println("= تفاصيل الموعد =");
         System.out.println("الزبون: " + client.getName());
         System.out.println("التاريخ: " + date);
         System.out.println("المدة: " + duration + " دقيقة");
