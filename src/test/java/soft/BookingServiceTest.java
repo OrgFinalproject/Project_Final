@@ -41,7 +41,7 @@ class BookingServiceTest {
 	@Test
 	void testBooking_success() {
 		client =new Client("leen","leen.05@gmail.com","0599454545");
-		appointment =new Appointment(LocalDate.of(2026,7,20),30,3,AppointmentType.VIRTUAL,client);
+		appointment =new Appointment(LocalDate.of(2026,8,20),30,3,AppointmentType.VIRTUAL,client);
 		slot1=new TimeSlot(LocalTime.of(4,30),LocalTime.of(5,30));
 		boolean valid=book.bookAppointment(appointment, slot1);
 		assertTrue(valid);
