@@ -1,4 +1,7 @@
-package Software;
+package soft;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * يمثل هذا الكلاس النظام الإداري (Administrator) الذي يعمل كخادم مركزي (Central Server).

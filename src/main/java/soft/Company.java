@@ -1,4 +1,4 @@
-package Soft;
+package soft;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class Company {
  * يحقق متطلب US1.3 - View available appointment slots.
  * @version 1.2
  */
-public void displayAvailableSlots() {
+public  boolean displayAvailableSlots() {
     System.out.println("--- المواعيد المتاحة لشركة: " + companyName + " ---");
     boolean found = false;
     
@@ -77,5 +77,6 @@ public void displayAvailableSlots() {
     if (!found) {
         System.out.println("نعتذر، لا توجد مواعيد متاحة حالياً لهذه الشركة.");
     }
+   return found;
 }
 }

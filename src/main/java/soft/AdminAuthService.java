@@ -1,4 +1,4 @@
-package Software;
+package soft;
 
 
 /**
@@ -18,8 +18,9 @@ public class AdminAuthService {
     /**
      * منشئ الكلاس لربط خدمة تسجيل الدخول بالسيرفر المركزي.
      * * @param admin كائن الأدمن الذي يحتوي على اليوزر والباسورد المخزنين.
+     * @param  
      */
-    public AdminAuthService(Admin admain) {
+    public AdminAuthService(Admin admin) {
         this.admin = admin;
     }
 
