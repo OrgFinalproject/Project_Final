@@ -19,6 +19,8 @@ import java.time.LocalDateTime;
 public class Appointment {
 
     private LocalDate date;
+
+	
     private int duration;
     private int participants;
     private String status;
