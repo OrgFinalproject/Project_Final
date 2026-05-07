@@ -41,7 +41,7 @@ class BookingServiceTest {
 	@Test
 	void testBooking_success() {
 		client =new Client("leen","leen.05@gmail.com","0599454545");
-		appointment =new Appointment(LocalDate.of(2026,4,20),30,3,AppointmentType.VIRTUAL,client);
+		appointment =new Appointment(LocalDate.of(2026,7,20),30,3,AppointmentType.VIRTUAL,client);
 		slot1=new TimeSlot(LocalTime.of(4,30),LocalTime.of(5,30));
 		boolean valid=book.bookAppointment(appointment, slot1);
 		assertTrue(valid);
@@ -112,7 +112,7 @@ class BookingServiceTest {
 	void testCancel_Success_Company() {
 		client =new Client("leen","leen.05@gmail.com","0599454545");
 		Company company = new Company("Cars4","Car-9");
-		appointment =new Appointment(LocalDate.of(2026,5,4),30,3,AppointmentType.VIRTUAL,client);
+		appointment =new Appointment(LocalDate.of(2026,7,4),30,3,AppointmentType.VIRTUAL,client);
 		slot1=new TimeSlot(LocalTime.of(4,30),LocalTime.of(5,30));
 		book.bookAppointment(appointment, slot1);
       boolean valid=book.cancelAppointment(appointment,company);
@@ -123,7 +123,7 @@ class BookingServiceTest {
 	{
 		client =new Client("leen","leen.05@gmail.com","0599454545");
 		Company company = new Company("Cars4","Car-9");
-		appointment =new Appointment(LocalDate.of(2026,5,4),30,3,AppointmentType.VIRTUAL,client);
+		appointment =new Appointment(LocalDate.of(2026,7,4),30,3,AppointmentType.VIRTUAL,client);
 		slot1=new TimeSlot(LocalTime.of(4,30),LocalTime.of(5,30));
 		TimeSlot newSlot=new TimeSlot(LocalTime.of(4,30),LocalTime.of(5,30));
 		book.bookAppointment(appointment, slot1);
@@ -134,7 +134,7 @@ class BookingServiceTest {
 	void testModify_Success_Comany()
 	{
 		client =new Client("leen","leen.05@gmail.com","0599454545");
-		appointment =new Appointment(LocalDate.of(2026,5,4),30,3,AppointmentType.VIRTUAL,client);
+		appointment =new Appointment(LocalDate.of(2026,7,4),30,3,AppointmentType.VIRTUAL,client);
 		slot1=new TimeSlot(LocalTime.of(4,30),LocalTime.of(5,30));
 		TimeSlot newSlot=new TimeSlot(LocalTime.of(4,30),LocalTime.of(5,30));
 		book.bookAppointment(appointment, slot1);
