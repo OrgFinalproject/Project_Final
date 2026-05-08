@@ -134,7 +134,7 @@ class BookingServiceTest {
 	void testModify_Success_Comany()
 	{
 		client =new Client("leen","leen.05@gmail.com","0599454545");
-		appointment =new Appointment(LocalDate.of(2026,7,4),30,3,AppointmentType.VIRTUAL,client);
+		appointment =new Appointment(LocalDate.of(2026,8,4),30,3,AppointmentType.VIRTUAL,client);
 		slot1=new TimeSlot(LocalTime.of(4,30),LocalTime.of(5,30));
 		TimeSlot newSlot=new TimeSlot(LocalTime.of(4,30),LocalTime.of(5,30));
 		book.bookAppointment(appointment, slot1);
