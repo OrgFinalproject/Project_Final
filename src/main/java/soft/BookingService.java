@@ -1,5 +1,4 @@
 package soft;
-
 import java.util.ArrayList;
 
 
@@ -22,8 +21,7 @@ public class BookingService {
 public BookingService(int maxParticipants,int maxDuration) {
 	  rules = new ArrayList<BookingRuleStrategy>();
      this.maxDuration=maxDuration;
-      this.maxParticipants=maxParticipants;
-    		  
+      this.maxParticipants=maxParticipants;   		  
     // Sprint 2 rules
     rules.add(new DurationRule(this.maxDuration));
     rules.add(new ParticipantLimitRule(this.maxParticipants));
@@ -42,14 +40,12 @@ rules.add(new UrgentRule());
  * - set time slot to the appointment 
  * -  Object requester to ensure that is company or user
  */
-
 public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
 	if(appointment.getDate()==null )
 	{
 		  System.out.println("Booking rejected:cannot book without object date"+"\n");
 		return false;
-	}
-	
+	}	
 	if(appointment.getOwner()==null )
 	{
         System.out.println("Booking rejected:cannot book without object Client"+"\n");
@@ -59,16 +55,13 @@ public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
 	{
 		  System.out.println("Booking rejected: cannot book in old date"+"\n");
 		return false;
-	}
-	
-	
+	}	
     for (BookingRuleStrategy rule : rules) {
         if (!rule.isValid(appointment)) {
             System.out.println("Booking rejected: rule violated"+"\n");
             return false;
         }
-    }
-    
+    }   
     if(appointment.getDuration()>timeslot.getRemainingTime())
     {
     	  System.out.println("Booking rejected:not enough time"+"\n");
@@ -77,28 +70,19 @@ public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
     appointment.setStatus("Confirmed");
     timeslot.addAppointment(appointment);
     appointment.setTimeSlot(timeslot);
-    System.out.println("Appointment booked successfully!");
-    
+    System.out.println("Appointment booked successfully!");  
     return true;
-}
-    
-    
-
-    
+}    
     public boolean cancelAppointment(Appointment appointment, Object requester) {
-
         if (appointment == null || requester == null) {
             return false;
         }
-
         // Only future appointments
         if (!appointment.isFuture()) {
         	System.out.println("Cannot cancel a past appointment.\n");
             return false;
         }
-
         boolean isAdmin = requester instanceof Company;
-
         // If requester is Client, must be owner (unless admin)
         if (requester instanceof Client) {
             Client client = (Client) requester;
@@ -108,37 +92,25 @@ public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
                 return false;
             }
         }
-
         // Remove from TimeSlot
         appointment.getTimeSlot().removeAppointment(appointment);
          appointment.setTimeSlot(null);
         // Update status
         appointment.setStatus("Cancelled");
-
         System.out.println("Appointment cancelled successfully.");
         return true;
     }
-    
-    
-    
-    
-    
-   /*****/
-    
     public boolean modifyAppointment(Appointment appointment,TimeSlot newSlot, Object requester) {
-
     	 TimeSlot oldSlot;
     	oldSlot = appointment.getTimeSlot();
         if (appointment == null || newSlot == null || requester == null) {
             return false;
         }
-
         // Only future appointments
         if (!appointment.isFuture()) {
         	System.out.println("Past appointments cannot be modified.");
             return false;
         }
-
         boolean isAdmin = requester instanceof Company; 
         // Authorization check
         if (requester instanceof Client) {
@@ -149,10 +121,8 @@ public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
                 return false;
             }
         }
-
         // Remove from old slot
         oldSlot.removeAppointment(appointment);
-
         // Check remaining time in new slot
         if (appointment.getDuration() > newSlot.getRemainingTime()) {
             // rollback
@@ -160,18 +130,11 @@ public boolean bookAppointment(Appointment appointment,TimeSlot timeslot) {
             System.out.println("Not enough remaining time in new slot.");
             return false;
         }
-
         // Add to new slot
         newSlot.addAppointment(appointment);
-
         // Update reference 
         appointment.setTimeSlot(newSlot);
-
         System.out.println("Appointment modified (rescheduled) successfully.");
         return true;
-    }
-    
-      
-    
-    
+    }     
 }
