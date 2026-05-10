@@ -1,49 +1,41 @@
-
-/**
- * تمثل هذه الفئة موعداً (Appointment) يتم إنشاؤه بواسطة الزبون.
- * تحتوي على تفاصيل الحجز مثل الوقت، المدة، وعدد المشاركين.
- * * @author Nadeen & Tala Barhoush
- * @version 2.0 
- */
-/**
- * Updated in Sprint 5:
-** @author Tala
- * - Added support for multiple appointment types
- * - Integrated with rule-based system for flexible business logic
- */
 package soft;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * تمثل هذه الفئة موعداً (Appointment) يتم إنشاؤه بواسطة الزبون.
+ * تحتوي على تفاصيل الحجز مثل الوقت، المدة، وعدد المشاركين.
+ *
+ * Updated in Sprint 5:
+ * - دعم أنواع متعددة من المواعيد
+ * - دمج نظام القواعد (Rule-based system)
+ *
+ * @author Nadeen and Tala Barhoush
+ * @version 2.0
+ */
 public class Appointment {
 
     private LocalDate date;
-
-	
     private int duration;
     private int participants;
     private String status;
     private AppointmentType type;
-    /*
-     * @author : talajaber 
-     * add client and add time slot
-     */
+
     private Client client;
     private TimeSlot timeSlot;
 
-
-   
-
-    public Appointment(LocalDate date, int duration, int participants, AppointmentType type, Client client){
+    public Appointment(LocalDate date, int duration, int participants,
+                       AppointmentType type, Client client) {
         this.date = date;
         this.duration = duration;
         this.participants = participants;
         this.type = type;
-        this.client=client;
+        this.client = client;
         this.status = "Pending";
     }
-	public Client getOwner()  {
+
+    public Client getOwner() {
         return client;
     }
 
@@ -54,7 +46,8 @@ public class Appointment {
     public void setTimeSlot(TimeSlot timeSlot) {
         this.timeSlot = timeSlot;
     }
-     public boolean isFuture() {
+
+    public boolean isFuture() {
         if (date == null || timeSlot == null || timeSlot.getStartTime() == null) {
             return false;
         }
@@ -64,24 +57,28 @@ public class Appointment {
 
         return appointmentDateTime.isAfter(LocalDateTime.now());
     }
-    
-    
-    
-    public LocalDate getDate() { return date; }
-    public int getDuration() { return duration; }
-    public int getParticipants() { return participants; }
-    public AppointmentType getType() { return type; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
 
-     public void displayInfo() {
-        System.out.println("= تفاصيل الموعد =");
-        System.out.println("الزبون: " + client.getName());
-        System.out.println("التاريخ: " + date);
-        System.out.println("المدة: " + duration + " دقيقة");
-        System.out.println("عدد المشاركين: " + participants);
-        System.out.println("الحالة: " + status);
-        System.out.println("====================");
+    public LocalDate getDate() {
+        return date;
     }
- }
 
+    public int getDuration() {
+        return duration;
+    }
+
+    public int getParticipants() {
+        return participants;
+    }
+
+    public AppointmentType getType() {
+        return type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+}

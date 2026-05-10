@@ -30,7 +30,7 @@ class VirtualRuleTest {
         Appointment app = new Appointment(
                 LocalDate.now().plusDays(1),
                 30,
-                9,   // ❌ invalid
+                11,   // ❌ invalid
                 AppointmentType.VIRTUAL,
                 new Client("Ali", "ali@gmail.com", "0599")
         );

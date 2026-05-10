@@ -1,6 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>try</groupId>
   <artifactId>soft</artifactId>
   <version>0.0.1-SNAPSHOT</version>
@@ -10,46 +13,49 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
 
-
-  <sonar.organization>najah2005</sonar.organization>
-
-
+    <sonar.organization>najah2005</sonar.organization>
   </properties>
 
+  <!-- ===================== DEPENDENCIES ===================== -->
   <dependencies>
+
+    <!-- JUnit 5 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>5.10.0</version>
       <scope>test</scope>
     </dependency>
-    
+
+    <!-- Jakarta Mail -->
     <dependency>
-    <groupId>com.sun.mail</groupId>
-    <artifactId>jakarta.mail</artifactId>
-    <version>2.0.1</version>
-</dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>jakarta.mail</artifactId>
+      <version>2.0.1</version>
+    </dependency>
 
-<!-- Dotenv -->
-        <dependency>
-    <groupId>io.github.cdimascio</groupId>
-    <artifactId>java-dotenv</artifactId>
-    <version>5.2.2</version>
-</dependency>
+    <!-- Dotenv -->
+    <dependency>
+      <groupId>io.github.cdimascio</groupId>
+      <artifactId>java-dotenv</artifactId>
+      <version>5.2.2</version>
+    </dependency>
 
+    <!-- Mockito -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>5.6.0</version>
+      <scope>test</scope>
+    </dependency>
 
-<!-- Mockito -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>5.6.0</version>
-            <scope>test</scope>
-        </dependency>
   </dependencies>
-  
 
+  <!-- ===================== BUILD ===================== -->
   <build>
     <plugins>
+
+      <!-- Compiler -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -58,44 +64,78 @@
           <release>8</release>
         </configuration>
       </plugin>
+
+      <!-- Tests -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
       </plugin>
-<plugin>
-  <groupId>org.jacoco</groupId>
-  <artifactId>jacoco-maven-plugin</artifactId>
-  <version>0.8.10</version>
 
-  <executions>
-    <execution>
-      <goals>
-        <goal>prepare-agent</goal>
-      </goals>
-    </execution>
+      <!-- JaCoCo -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.10</version>
 
-    <execution>
-      <id>report</id>
-      <phase>verify</phase>
-      <goals>
-        <goal>report</goal>
-      </goals>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
 
-      <configuration>
-        <excludes>
-          <exclude>**/AppointmentUI*</exclude>
-          <exclude>**/ScheduleUI*</exclude>
-          <exclude>**/LoginPanelOnly*</exclude>
-          <exclude>**/CompanyPanel*</exclude>
-          <exclude>**/MainApp*</exclude>
-        </excludes>
-      </configuration>
+          <execution>
+            <id>report</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
 
-    </execution>
-  </executions>
-</plugin>
-      
+            <configuration>
+              <excludes>
+                <exclude>**/AppointmentUI*</exclude>
+                <exclude>**/ScheduleUI*</exclude>
+                <exclude>**/EmailService*</exclude>
+                <exclude>**/LoginPanelOnly*</exclude>
+                <exclude>**/CompanyPanel*</exclude>
+                <exclude>**/ReminderService*</exclude>
+                <exclude>**/main7*</exclude>
+              </excludes>
+            </configuration>
+
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- ===================== JAVADOC (ONLY BookingService) ===================== -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.6.0</version>
+
+        <executions>
+          <execution>
+            <id>generate-javadoc</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>javadoc</goal>
+            </goals>
+
+            <configuration>
+
+              <!-- مهم: تحديد كلاس واحد فقط -->
+              <sourcepath>src/main/java</sourcepath>
+
+              
+
+            </configuration>
+
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
+
 </project>

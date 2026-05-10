@@ -1,24 +1,24 @@
 package soft;
 
-
 /**
  * توفر هذه الفئة خدمات التحقق من الهوية (Authentication) للأدمن.
- * تعمل كطبقة خدمة (Service Layer) تفصل بين بيانات الأدمن ومنطق تسجيل الدخول.
- * * @author Nadeen & Tala Jaber
+ * تعمل كطبقة خدمة تفصل بين بيانات الأدمن ومنطق تسجيل الدخول.
+ *
+ * @author Nadeen and Tala Jaber
  * @version 1.0
  */
 public class AdminAuthService {
 
-    /** مرجع لكائن الأدمن (السيرفر) للتحقق من بياناته */
+    /** مرجع لكائن الأدمن للتحقق من بياناته */
     private Admin admin;
-    
+
     /** حالة تسجيل الدخول الحالية */
     private boolean loggedIn = false;
 
     /**
-     * منشئ الكلاس لربط خدمة تسجيل الدخول بالسيرفر المركزي.
-     * * @param admin كائن الأدمن الذي يحتوي على اليوزر والباسورد المخزنين.
-     * @param  
+     * منشئ الكلاس لربط خدمة تسجيل الدخول بالأدمن.
+     *
+     * @param admin كائن الأدمن الذي يحتوي على بيانات الدخول
      */
     public AdminAuthService(Admin admin) {
         this.admin = admin;
@@ -26,10 +26,10 @@ public class AdminAuthService {
 
     /**
      * تنفيذ عملية تسجيل الدخول.
-     * يحقق متطلب US1.1: Administrator login.
-     * * @param username اسم المستخدم المدخل.
-     * @param password كلمة المرور المدخلة.
-     * @return true إذا كانت البيانات صحيحة، false خلاف ذلك.
+     *
+     * @param username اسم المستخدم
+     * @param password كلمة المرور
+     * @return true إذا كانت البيانات صحيحة
      */
     public boolean login(String username, String password) {
         if (admin.getUsername().equals(username) &&
@@ -45,8 +45,7 @@ public class AdminAuthService {
     }
 
     /**
-     * تنفيذ عملية تسجيل الخروج.
-     * يحقق متطلب US1.2: Administrator logout.
+     * تسجيل الخروج.
      */
     public void logout() {
         if (loggedIn) {
@@ -58,8 +57,7 @@ public class AdminAuthService {
     }
 
     /**
-     * التحقق مما إذا كان الأدمن مسجل دخوله حالياً.
-     * * @return حالة تسجيل الدخول.
+     * @return حالة تسجيل الدخول
      */
     public boolean isLoggedIn() {
         return loggedIn;

@@ -1,33 +1,34 @@
 package soft;
 
-
 /**
- * قاعدة للتحقق من الحد الأقصى للمشاركين في الموعد الواحد.
- * تنفذ واجهة {@link BookingRuleStrategy} كجزء من نمط التصميم Strategy.
- * * @author  Nadeen
+ * Rule that enforces a maximum number of participants per appointment.
+ * Implements {@link BookingRuleStrategy} as part of the Strategy design pattern.
+ *
+ * @author Nadeen
  * @version 1.0
  */
 public class ParticipantLimitRule implements BookingRuleStrategy {
 
-    /** الحد الأقصى المسموح به لعدد المشاركين */
+    /** Maximum allowed number of participants */
     private int maxParticipants;
 
     /**
-     * منشئ القاعدة لتعريف الحد الأقصى للمشاركين.
-     * * @param maxParticipants العدد الأقصى المسموح به (مثلاً 10 أشخاص).
+     * Constructs the rule with a defined participant limit.
+     *
+     * @param maxParticipants the maximum number of allowed participants
      */
     public ParticipantLimitRule(int maxParticipants) {
         this.maxParticipants = maxParticipants;
     }
 
     /**
-     * يتحقق مما إذا كان عدد المشاركين في الموعد يقع ضمن النطاق المسموح.
-     * * @param app كائن الموعد المراد فحصه.
-     * @return true إذا كان عدد المشاركين أقل من أو يساوي الحد الأقصى، و false خلاف ذلك.
+     * Validates whether the appointment satisfies the participant limit.
+     *
+     * @param app the appointment to validate
+     * @return true if participants are within the allowed limit, false otherwise
      */
     @Override
     public boolean isValid(Appointment app) {
-        // التحقق من أن عدد المشاركين لا يتجاوز السعة القصوى
         return app.getParticipants() <= maxParticipants;
     }
 }

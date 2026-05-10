@@ -2,29 +2,31 @@ package soft;
 
 import java.util.ArrayList;
 import java.util.List;
-import soft.Schedule;
 
 /**
- * تمثل هذه الفئة الشركة أو مزود الخدمة (مثل شركة سيارات أو مكتب عقارات).
- * يتم تخزين كائنات هذه الفئة في السيرفر المركزي (Admin) لتمكين الزبائن من الحجز.
- * * @author Nadeen
- * @version 1.1
+ * Represents a company or service provider (e.g., car rental, real estate office).
+ * Each company has its own schedules and is registered in the central system (Admin)
+ * to allow clients to browse and book appointments.
+ *
+ * @author Nadeen and Tala Jaber
+ * @version 1.2
  */
 public class Company {
 
-    /** اسم الشركة التجاري */
+    /** The company name */
     private String companyName;
 
-    /** نوع الخدمة المقدمة (مثلاً: Car Rental) */
+    /** Type of service provided (e.g., Car Rental, Real Estate) */
     private String serviceType;
 
-    /** قائمة الجداول الزمنية الخاصة بهذه الشركة فقط */
+    /** List of schedules belonging to this company */
     private List<Schedule> schedules;
 
     /**
-     * منشئ الكلاس لتعريف شركة جديدة وتجهيز قائمة جداولها.
-     * * @param companyName اسم الشركة.
-     * @param serviceType تخصص الشركة أو نوع خدمتها.
+     * Creates a new company instance and initializes its schedule list.
+     *
+     * @param companyName the name of the company
+     * @param serviceType the type of service provided
      */
     public Company(String companyName, String serviceType) {
         this.companyName = companyName;
@@ -33,50 +35,61 @@ public class Company {
     }
 
     /**
-     * إضافة جدول زمني جديد (ليوم معين مثلاً) لهذه الشركة.
-     * * @param schedule كائن الجدول المراد إضافته.
+     * Adds a new schedule to the company.
+     *
+     * @param schedule the schedule to be added
      */
     public void addSchedule(Schedule schedule) {
         this.schedules.add(schedule);
     }
 
     /**
-     * الحصول على اسم الشركة.
-     * @return اسم الشركة كـ String.
+     * Returns the company name.
+     *
+     * @return the company name
      */
-    public String getCompanyName() { 
-        return companyName; 
+    public String getCompanyName() {
+        return companyName;
     }
 
     /**
-     * الحصول على قائمة الجداول المرتبطة بالشركة.
-     * @return قائمة تحتوي على جداول المواعيد.
+     * Returns all schedules related to the company.
+     *
+     * @return list of schedules
      */
-    public List<Schedule> getSchedules() { 
-        return schedules; 
+    public List<Schedule> getSchedules() {
+        return schedules;
     }
+
     /**
- * عرض كافة الفترات الزمنية المتاحة للشركة.
- * يحقق متطلب US1.3 - View available appointment slots.
- * @version 1.2
- */
-public  boolean displayAvailableSlots() {
-    System.out.println("--- المواعيد المتاحة لشركة: " + companyName + " ---");
-    boolean found = false;
-    
-    for (Schedule schedule : schedules) {
-        for (TimeSlot slot : schedule.getAllTimeSlots()) {
-            if (slot.isAvailable()) {
-                System.out.println("التاريخ: " + schedule.getDate() + 
-                                   " | الوقت: " + slot.getStartTime() + " - " + slot.getEndTime());
-                found = true;
+     * Displays all available time slots for this company.
+     * Implements requirement US1.3 - View available appointment slots.
+     *
+     * @return true if available slots exist, false otherwise
+     */
+    public boolean displayAvailableSlots() {
+        System.out.println("--- Available slots for company: " + companyName + " ---");
+
+        boolean found = false;
+
+        for (Schedule schedule : schedules) {
+            for (TimeSlot slot : schedule.getAllTimeSlots()) {
+
+                if (slot.isAvailable()) {
+                    System.out.println(
+                            "Date: " + schedule.getDate() +
+                            " | Time: " + slot.getStartTime() +
+                            " - " + slot.getEndTime()
+                    );
+                    found = true;
+                }
             }
         }
+
+        if (!found) {
+            System.out.println("No available slots at the moment for this company.");
+        }
+
+        return found;
     }
-    
-    if (!found) {
-        System.out.println("نعتذر، لا توجد مواعيد متاحة حالياً لهذه الشركة.");
-    }
-   return found;
-}
 }

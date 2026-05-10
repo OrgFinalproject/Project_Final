@@ -1,28 +1,30 @@
 package soft;
 
-
 /**
- * تمثل هذه الفئة الزبون (Client) الذي يستخدم النظام لاستعراض المواعيد وإجراء الحجوزات.
- * تندرج هذه الفئة ضمن طبقة النطاق (Domain Layer) وتخزن البيانات الأساسية للتواصل مع الزبون.
- * * @author Nadeenا
+ * Represents a client who uses the system to browse and book appointments.
+ * This class belongs to the Domain Layer and stores the basic information
+ * required for communication with the client.
+ *
+ * @author Nadeen 
  * @version 1.0
  */
 public class Client {
 
-    /** اسم الزبون الكامل */
+    /** Full name of the client */
     private String name;
 
-    /** البريد الإلكتروني للزبون (يستخدم لإرسال الإشعارات في Sprint 3) */
+    /** Email address used for sending notifications */
     private String email;
 
-    /** رقم هاتف الزبون للتواصل */
+    /** Phone number for contact purposes */
     private String phoneNumber;
 
     /**
-     * منشئ الكلاس (Constructor) لإنشاء كائن زبون جديد.
-     * * @param name اسم الزبون.
-     * @param email البريد الإلكتروني الخاص بالزبون.
-     * @param phoneNumber رقم هاتف الزبون.
+     * Constructs a new Client instance.
+     *
+     * @param name the full name of the client
+     * @param email the email address of the client
+     * @param phoneNumber the phone number of the client
      */
     public Client(String name, String email, String phoneNumber) {
         this.name = name;
@@ -31,24 +33,27 @@ public class Client {
     }
 
     /**
-     * الحصول على اسم الزبون.
-     * * @return اسم الزبون الحالي.
+     * Returns the client's name.
+     *
+     * @return the client name
      */
-    public String getName() { 
+    public String getName() {
         return name;
     }
 
     /**
-     * الحصول على البريد الإلكتروني للزبون.
-     * * @return البريد الإلكتروني للزبون.
+     * Returns the client's email address.
+     *
+     * @return the client email
      */
-    public String getEmail() { 
-        return email; 
+    public String getEmail() {
+        return email;
     }
 
     /**
-     * الحصول على رقم هاتف الزبون.
-     * * @return رقم الهاتف.
+     * Returns the client's phone number.
+     *
+     * @return the phone number
      */
     public String getPhoneNumber() {
         return phoneNumber;
